@@ -58,7 +58,7 @@ class HeightRecord extends InstantaneousRecord {
   factory HeightRecord.fromMap(Map<String, dynamic> map) {
     return HeightRecord(
       time: DateTime.parse(map['time']),
-      zoneOffset: parseDuration(map['zoneOffset']),
+      zoneOffset: DateTimeUtils.parseDuration(map['zoneOffset']),
       metadata: Metadata.fromMap(Map<String, dynamic>.from(map['metadata'])),
       height: Length.fromMap(Map<String, dynamic>.from(map['height'])),
     );

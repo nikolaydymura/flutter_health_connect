@@ -57,7 +57,7 @@ class Vo2MaxRecord extends InstantaneousRecord {
   factory Vo2MaxRecord.fromMap(Map<String, dynamic> map) {
     return Vo2MaxRecord(
       time: DateTime.parse(map['time']),
-      zoneOffset: parseDuration(map['zoneOffset']),
+      zoneOffset: DateTimeUtils.parseDuration(map['zoneOffset']),
       metadata: Metadata.fromMap(Map<String, dynamic>.from(map['metadata'])),
       vo2MillilitersPerMinuteKilogram:
           map['vo2MillilitersPerMinuteKilogram'] as double,

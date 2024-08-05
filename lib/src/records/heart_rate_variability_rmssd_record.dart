@@ -49,7 +49,7 @@ class HeartRateVariabilityRmssdRecord extends InstantaneousRecord {
   factory HeartRateVariabilityRmssdRecord.fromMap(Map<String, dynamic> map) {
     return HeartRateVariabilityRmssdRecord(
       time: DateTime.parse(map['time']),
-      zoneOffset: parseDuration(map['zoneOffset']),
+      zoneOffset: DateTimeUtils.parseDuration(map['zoneOffset']),
       metadata: Metadata.fromMap(Map<String, dynamic>.from(map['metadata'])),
       heartRateVariabilityMillis: map['heartRateVariabilityMillis'] as double,
     );

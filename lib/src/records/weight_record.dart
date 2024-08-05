@@ -28,7 +28,8 @@ class WeightRecord extends InstantaneousRecord {
     required this.weight,
     metadata,
   })  : metadata = metadata ?? Metadata.empty(),
-        assert(weight.inKilograms >= _minWeight.inKilograms && weight.inKilograms <= _maxWeight.inKilograms);
+        assert(weight.inKilograms >= _minWeight.inKilograms &&
+            weight.inKilograms <= _maxWeight.inKilograms);
 
   @override
   bool operator ==(Object other) =>
@@ -40,7 +41,8 @@ class WeightRecord extends InstantaneousRecord {
           metadata == other.metadata;
 
   @override
-  int get hashCode => time.hashCode ^ zoneOffset.hashCode ^ weight.hashCode ^ metadata.hashCode;
+  int get hashCode =>
+      time.hashCode ^ zoneOffset.hashCode ^ weight.hashCode ^ metadata.hashCode;
 
   static const Mass _minWeight = Mass.kilograms(0);
   static const Mass _maxWeight = Mass.kilograms(1000);
@@ -59,7 +61,7 @@ class WeightRecord extends InstantaneousRecord {
   factory WeightRecord.fromMap(Map<String, dynamic> map) {
     return WeightRecord(
       time: DateTime.parse(map['time']),
-      zoneOffset: parseDuration(map['zoneOffset']),
+      zoneOffset: DateTimeUtils.parseDuration(map['zoneOffset']),
       metadata: Metadata.fromMap(Map<String, dynamic>.from(map['metadata'])),
       weight: Mass.fromMap(Map<String, dynamic>.from(map['weight'])),
     );

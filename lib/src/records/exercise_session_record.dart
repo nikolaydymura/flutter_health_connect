@@ -121,9 +121,9 @@ class ExerciseSessionRecord extends IntervalRecord {
   factory ExerciseSessionRecord.fromMap(Map<String, dynamic> map) {
     return ExerciseSessionRecord(
       startTime: DateTime.parse(map['startTime']),
-      startZoneOffset: parseDuration(map['startZoneOffset']),
+      startZoneOffset: DateTimeUtils.parseDuration(map['startZoneOffset']),
       endTime: DateTime.parse(map['endTime']),
-      endZoneOffset: parseDuration(map['endZoneOffset']),
+      endZoneOffset: DateTimeUtils.parseDuration(map['endZoneOffset']),
       metadata: Metadata.fromMap(Map<String, dynamic>.from(map['metadata'])),
       exerciseType: ExerciseType.fromValue(map['exerciseType']),
       title: map['title'],
