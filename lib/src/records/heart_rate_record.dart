@@ -1,5 +1,6 @@
 import 'package:flutter_health_connect/src/records/metadata/metadata.dart';
 import 'package:flutter_health_connect/src/records/series_record.dart';
+import 'package:flutter_health_connect/src/utils/datetime_utils.dart';
 
 class HeartRateRecord extends SeriesRecord<HeartRateSample> {
   /// Unit: Beats per minute (BPM)
@@ -12,8 +13,7 @@ class HeartRateRecord extends SeriesRecord<HeartRateSample> {
   static const String aggregationKeyBpmMax = 'HeartRateRecordBpmMax';
 
   /// Unit: No unit
-  static const String aggregationKeyMeasurementsCount =
-      'HeartRateRecordMeasurementsCount';
+  static const String aggregationKeyMeasurementsCount = 'HeartRateRecordMeasurementsCount';
 
   @override
   DateTime endTime;
@@ -36,8 +36,7 @@ class HeartRateRecord extends SeriesRecord<HeartRateSample> {
     required this.startTime,
     this.startZoneOffset,
   })  : metadata = metadata ?? Metadata.empty(),
-        assert(startTime.isBefore(endTime),
-            'startTime must not be after endTime.');
+        assert(startTime.isBefore(endTime), 'startTime must not be after endTime.');
 
   @override
   bool operator ==(Object other) =>
@@ -75,17 +74,12 @@ class HeartRateRecord extends SeriesRecord<HeartRateSample> {
   factory HeartRateRecord.fromMap(Map<String, dynamic> map) {
     return HeartRateRecord(
       endTime: DateTime.parse(map['endTime']),
-      endZoneOffset: map['endZoneOffset'] == null
-          ? null
-          : Duration(hours: map['endZoneOffset'] as int),
+      endZoneOffset: parseDuration(map['endZoneOffset']),
       metadata: Metadata.fromMap(Map<String, dynamic>.from(map['metadata'])),
-      samples: (map['samples'] as List<dynamic>)
-          .map((e) => HeartRateSample.fromMap(e as Map<String, dynamic>))
-          .toList(),
+      samples:
+          (map['samples'] as List<dynamic>).map((e) => HeartRateSample.fromMap(e as Map<String, dynamic>)).toList(),
       startTime: DateTime.parse(map['startTime']),
-      startZoneOffset: map['startZoneOffset'] == null
-          ? null
-          : Duration(hours: map['startZoneOffset'] as int),
+      startZoneOffset: parseDuration(map['startZoneOffset']),
     );
   }
 
@@ -102,15 +96,12 @@ class HeartRateSample {
   HeartRateSample({
     required this.beatsPerMinute,
     required this.time,
-  }) : assert(beatsPerMinute >= _minBeatsPerMinute &&
-            beatsPerMinute <= _maxBeatsPerMinute);
+  }) : assert(beatsPerMinute >= _minBeatsPerMinute && beatsPerMinute <= _maxBeatsPerMinute);
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is HeartRateSample &&
-          beatsPerMinute == other.beatsPerMinute &&
-          time == other.time;
+      other is HeartRateSample && beatsPerMinute == other.beatsPerMinute && time == other.time;
 
   @override
   int get hashCode => beatsPerMinute.hashCode ^ time.hashCode;
