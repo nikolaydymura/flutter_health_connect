@@ -68,6 +68,11 @@ class Vo2MaxRecord extends InstantaneousRecord {
           : Vo2MaxMeasurementMethod.other,
     );
   }
+
+  @override
+  String toString() {
+    return 'Vo2MaxRecord{metadata: $metadata, time: $time, zoneOffset: $zoneOffset, vo2MillilitersPerMinuteKilogram: $vo2MillilitersPerMinuteKilogram}, measurementMethod: $measurementMethod}';
+  }
 }
 
 enum Vo2MaxMeasurementMethod {
